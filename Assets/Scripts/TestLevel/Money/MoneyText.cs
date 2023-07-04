@@ -14,6 +14,6 @@ public class MoneyText : MonoBehaviour
     }
     private void ChangeMoneyText(float money)
     {
-        _text.text= money.ToString();
+        _text.text = NumbersFormatter.Format(money);
     }
 }

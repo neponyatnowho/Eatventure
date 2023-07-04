@@ -9,6 +9,11 @@ public class MachineTable : MonoBehaviour
 
     public MachinesType MachineType => _machineType;
 
+    public void Init(OrdersInfo ordersInfo, MoneyController moneyController)
+    {
+        _upgradePanel.Init(_machineType, ordersInfo, moneyController);
+    }
+
     public bool IsFree()
     {
         return _workPoints.Any(point => point.IsFree);
@@ -26,6 +31,5 @@ public class MachineTable : MonoBehaviour
     public void CloseUpgradePanel()
     {
         _upgradePanel.ClosePanel();
-
     }
 }

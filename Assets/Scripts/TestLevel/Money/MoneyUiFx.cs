@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public class MoneyUiFx : MoneyFx
     {
         ResetStats();
         transform.position = pos;
-        _text.text = money.ToString();
+        _text.text = NumbersFormatter.Format(money);
         AnimateOut();
     }
 

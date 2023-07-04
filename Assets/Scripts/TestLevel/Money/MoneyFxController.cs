@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class MoneyFxController : MonoBehaviour
 {
+    [SerializeField] private OrdersInfo _ordersInfo;
     [SerializeField] private MoneyUIParticlePool _moneyUiParticle;
     [SerializeField] private MoneyParticlePool _moneyParticlePool;
     
@@ -14,6 +15,7 @@ public class MoneyFxController : MonoBehaviour
         var fx = _moneyParticlePool.GetFreeElement();
         fx.transform.position = position;
         var uiFx = _moneyUiParticle.GetFreeElement();
-        uiFx.Show(order.Price, position);
+        float orderPrice = _ordersInfo.GetPrice(order.OrderType);
+        uiFx.Show(orderPrice, position);
     }
 }

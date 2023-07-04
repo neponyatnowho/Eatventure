@@ -5,14 +5,21 @@ public class MachineTableController : MonoBehaviour
 {
     [SerializeField] private List<MachineTable> _machineTables;
     [SerializeField] private MachineTableClickObserver _tableClickObserver;
+    [SerializeField] private OrdersInfo _ordersInfo;
+    [SerializeField] private MoneyController _moneyController;
 
     private MachineTable _currentTableWhithOpenPanel;
     public IEnumerable<MachineTable> MachineTables => _machineTables;
 
-    private void Start()
+    private void Awake()
     {
         _tableClickObserver.OnTableClick += OnTableClicked;
         _tableClickObserver.OnNonTableClick += CloseCurrentPanel;
+
+        foreach (var table in _machineTables)
+        {
+            table.Init(_ordersInfo, _moneyController);
+        }
     }
 
     private void OnTableClicked(MachineTable machineTable)

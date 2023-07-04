@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class MachineTableClickObserver : MonoBehaviour
@@ -9,6 +9,7 @@ public class MachineTableClickObserver : MonoBehaviour
     [SerializeField] private TouchInput _touchInput;
 
     private Camera _mainCamera;
+
     private void Start()
     {
         _mainCamera = Camera.main;
@@ -22,12 +23,18 @@ public class MachineTableClickObserver : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
             if (hit.collider.TryGetComponent(out MachineTable machineTable))
-            OnTableClick?.Invoke(machineTable);
+            {
+                OnTableClick?.Invoke(machineTable);
+            }
             else
+            {
                 ProcessNonTableClick();
+            }
         }
         else
+        {
             ProcessNonTableClick();
+        }
     }
 
     private void ProcessNonTableClick()
