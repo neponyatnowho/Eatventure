@@ -15,7 +15,7 @@ public class MoneyFxController : MonoBehaviour
         var fx = _moneyParticlePool.GetFreeElement();
         fx.transform.position = position;
         var uiFx = _moneyUiParticle.GetFreeElement();
-        float orderPrice = _ordersInfo.GetPrice(order.OrderType);
+        double orderPrice = _ordersInfo.GetPrice(order.OrderType);
         uiFx.Show(orderPrice, position);
     }
 }

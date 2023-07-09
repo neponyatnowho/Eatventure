@@ -11,7 +11,7 @@ public class WorkersController : MonoBehaviour
     public event Action OnOrderComplete;
 
     [SerializeField] private List<Worker> _workers;
-    private List<MachineTable> _machineTables = new List<MachineTable>();
+    private List<ComplexMachineTables> _machineTables = new List<ComplexMachineTables>();
     private Queue<IOrder> _orders = new Queue<IOrder>();
 
 
@@ -25,7 +25,7 @@ public class WorkersController : MonoBehaviour
         }
     }
 
-    public void AddMachineList(List<MachineTable> machines)
+    public void AddMachineList(List<ComplexMachineTables> machines)
     {
         foreach (var machine in machines)
         {
@@ -57,21 +57,24 @@ public class WorkersController : MonoBehaviour
             {
                 Worker currentWorker = GetFreeWorker();
                 IOrder currentOrder = GetOrder();
-                UnitPoint<Worker> workPoint = GetWorkPointOnMachine(currentOrder.OrderType);
+                ComplexMachineTables machineTable = GetWorkPointOnMachine(currentOrder.OrderType);
+
+                UnitPoint<Worker> workPoint = machineTable.GetFreePoint();
+                float timeToCook = machineTable.GetCookingTime();
+
                 workPoint.Reserv(currentWorker);
-                currentWorker.MakeOrder(workPoint, currentOrder);
+                currentWorker.MakeOrder(workPoint, currentOrder, timeToCook);
             }
-        }
+        } 
     }
     private bool IsAnyMachineFree(MachinesType type)
     {
         return _machineTables.Any(machine => machine.MachineType == type && machine.IsFree());
     }
 
-    private UnitPoint<Worker> GetWorkPointOnMachine (MachinesType type)
+    private ComplexMachineTables GetWorkPointOnMachine (MachinesType type)
     {
-        MachineTable machineTable =  _machineTables.First(machine => machine.MachineType == type && machine.IsFree());
-        return machineTable.GetFreePoint();
+        return  _machineTables.First(machine => machine.MachineType == type && machine.IsFree());
     }
 
     private Worker GetFreeWorker()

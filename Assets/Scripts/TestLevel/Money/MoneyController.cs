@@ -6,26 +6,27 @@ public class MoneyController : MonoBehaviour
 {
     [SerializeField] private  OrdersInfo _ordersInfo;
     [SerializeField] private float _saveMoneyFrequency = 10f;
-    public Action<float> OnMoneyChanged;
+    public Action<double> OnMoneyChanged;
 
-    private float _money;
-    public float Money => _money;
+    private double _money;
+    public double Money => _money;
 
     private void Awake()
     {
-        _money = PlayerPrefs.GetFloat("money", 0f);
+        var moneyText = PlayerPrefs.GetString("money", "5000");
+        _money = NumbersFormatter.Format(moneyText);
         RegisterMoneyChanged();
         StartCoroutine(SaveMoneyRoutine());
     }
     public void CashingTheOrder(IOrder order)
     {
-        float orderPrice = _ordersInfo.GetPrice(order.OrderType);
+        double orderPrice = _ordersInfo.GetPrice(order.OrderType);
         _money += orderPrice;
         RegisterMoneyChanged();
     }
     public bool TryBuyUpgradeToOrder(MachinesType orderType)
     {
-        float upgradePrice = _ordersInfo.GetUpgradePrice(orderType);
+        double upgradePrice = _ordersInfo.GetUpgradePrice(orderType);
         if (upgradePrice < 0 || _money < upgradePrice)
             return false;
 
@@ -42,7 +43,7 @@ public class MoneyController : MonoBehaviour
     {
         while(true)
         {
-            PlayerPrefs.SetFloat("money", _money);
+            PlayerPrefs.SetString("money", NumbersFormatter.Format(_money));
             yield return new WaitForSecondsRealtime(_saveMoneyFrequency);
         }
     }

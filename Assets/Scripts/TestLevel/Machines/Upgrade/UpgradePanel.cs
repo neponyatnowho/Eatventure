@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,11 +13,12 @@ public class UpgradePanel : MonoBehaviour
     [SerializeField] private TMP_Text _timeText;
     [SerializeField] private TMP_Text _upgradePriceText;
     [SerializeField] private Button _upgradeButton;
+    [SerializeField] private Slider _sliderUpgradeProgress;
 
     private MachinesType _machineType;
     private OrdersInfo _ordersInfo;
     private MoneyController _moneyController;
-    private float _upgradePrice;
+    private double _upgradePrice;
 
     private Canvas _canvas;
 
@@ -25,17 +27,53 @@ public class UpgradePanel : MonoBehaviour
         _moneyController = moneyController;
         _upgradeButton.onClick.AddListener(OnUpgradeButtonClick);
         _ordersInfo = ordersInfo;
+        _ordersInfo.OnLevelDoublePriceArrived += OnDoubleLvlArrived;
         _machineType = machineType;
         _moneyController.OnMoneyChanged += SetButtonInteractable;
         _canvas = GetComponent<Canvas>();
+
+        UpdateSliderInfo(_ordersInfo.GetLevel(_machineType));
         UpdateAllTextInfo();
 
     }
+
+    private void OnDoubleLvlArrived(int currentDoubleLvl, MachinesType machineType)
+    {
+        if (machineType != _machineType)
+            return;
+
+        UpdateSliderInfo(currentDoubleLvl);
+    }
+
+    private void UpdateSliderInfo(int currentDoubleLvl)
+    {
+        DoublePriceLevel[] allLevels = (DoublePriceLevel[])Enum.GetValues(typeof(DoublePriceLevel));
+        DoublePriceLevel nextLevel = DoublePriceLevel.Level10;
+
+        foreach (DoublePriceLevel level in allLevels)
+        {
+            if ((int)level > currentDoubleLvl)
+            {
+                nextLevel = level;
+                break;
+            }
+        }
+        _sliderUpgradeProgress.minValue = currentDoubleLvl;
+
+        if(nextLevel == DoublePriceLevel.Level10)
+            _sliderUpgradeProgress.minValue = 0;
+
+        _sliderUpgradeProgress.maxValue = (int)nextLevel;
+    }
     private void UpdateAllTextInfo()
     {
-        _levelText.text = "Level " + _ordersInfo.GetLevel(_machineType).ToString();
+        var level = _ordersInfo.GetLevel(_machineType);
+        _levelText.text = "Level " + level.ToString();
 
         _machineTypeText.text = _machineType.ToString();
+
+
+        _sliderUpgradeProgress.value = level;
 
         _orderPriceText.text = NumbersFormatter.Format(_ordersInfo.GetPrice(_machineType));
 
@@ -55,9 +93,9 @@ public class UpgradePanel : MonoBehaviour
 
     }
 
-    private void SetButtonInteractable(float money)
+    private void SetButtonInteractable(double money)
     {
-        bool isInteractable = _upgradePrice <= money;
+        bool isInteractable = _upgradePrice < money;
         _upgradeButton.interactable = isInteractable;
     }
 

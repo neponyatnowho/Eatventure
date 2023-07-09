@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MachineTableClickObserver : MonoBehaviour
 {
-    public event Action<MachineTable> OnTableClick;
+    public event Action<ComplexMachineTables> OnTableClick;
     public event Action OnNonTableClick;
 
     [SerializeField] private TouchInput _touchInput;
@@ -22,7 +22,7 @@ public class MachineTableClickObserver : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.collider.TryGetComponent(out MachineTable machineTable))
+            if (hit.collider.TryGetComponent(out ComplexMachineTables machineTable))
             {
                 OnTableClick?.Invoke(machineTable);
             }

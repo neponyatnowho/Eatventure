@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class MachineTableController : MonoBehaviour
 {
-    [SerializeField] private List<MachineTable> _machineTables;
+    [SerializeField] private List<ComplexMachineTables> _machineTables;
     [SerializeField] private MachineTableClickObserver _tableClickObserver;
     [SerializeField] private OrdersInfo _ordersInfo;
     [SerializeField] private MoneyController _moneyController;
 
-    private MachineTable _currentTableWhithOpenPanel;
-    public IEnumerable<MachineTable> MachineTables => _machineTables;
+    private ComplexMachineTables _currentTableWhithOpenPanel;
+    public IEnumerable<ComplexMachineTables> MachineTables => _machineTables;
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class MachineTableController : MonoBehaviour
         }
     }
 
-    private void OnTableClicked(MachineTable machineTable)
+    private void OnTableClicked(ComplexMachineTables machineTable)
     {
         if(_currentTableWhithOpenPanel != null && _currentTableWhithOpenPanel != machineTable)
         {
@@ -31,9 +31,9 @@ public class MachineTableController : MonoBehaviour
         OpenTableUpgradePanel(machineTable);
     }
 
-    private void OpenTableUpgradePanel(MachineTable machineTable)
+    private void OpenTableUpgradePanel(ComplexMachineTables machineTable)
     {
-        MachineTable tableToOpen = _machineTables.Find(table => table == machineTable);
+        ComplexMachineTables tableToOpen = _machineTables.Find(table => table == machineTable);
         tableToOpen.OpenUpgradePanel();
         _currentTableWhithOpenPanel = tableToOpen;
     }

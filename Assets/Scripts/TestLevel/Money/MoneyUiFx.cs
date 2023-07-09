@@ -13,7 +13,7 @@ public class MoneyUiFx : MoneyFx
         _startScale = transform.localScale;
         transform.rotation = Camera.main.transform.rotation;
     }
-    public void Show(float money, Vector3 pos)
+    public void Show(double money, Vector3 pos)
     {
         ResetStats();
         transform.position = pos;

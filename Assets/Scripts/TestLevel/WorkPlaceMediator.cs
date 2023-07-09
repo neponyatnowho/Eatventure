@@ -8,7 +8,7 @@ public class WorkPlaceMediator : MonoBehaviour
     [SerializeField] private WorkersController _workerController;
     [SerializeField] private MachineTableController _machineTableController;
 
-    private List<MachineTable> _machineTables;
+    private List<ComplexMachineTables> _machineTables;
     private int _readyToOrderTablesCount => _clientCheckout.ReadyToOrderTables.Count;
     private int _readyToMakeOrdersCount => _clientCheckout.ReadyToMakeOrders.Count;
     private void Awake()

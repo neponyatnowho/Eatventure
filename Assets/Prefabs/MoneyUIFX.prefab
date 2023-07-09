@@ -33,10 +33,10 @@ RectTransform:
   m_Father: {fileID: 8724549807525892950}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.647, y: 0.5}
-  m_AnchorMax: {x: 0.647, y: 0.5}
-  m_AnchoredPosition: {x: 61.51998, y: -0.25004}
-  m_SizeDelta: {x: 63.4489, y: 32.0001}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &8724549806653037657
 CanvasRenderer:
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 9.99k
+  m_text: 9k
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -93,12 +93,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.7
+  m_fontSize: 21.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 5
-  m_fontSizeMax: 72
+  m_fontSizeMax: 21.3
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 8724549807363748239}
   - component: {fileID: 8724549807363748237}
   - component: {fileID: 8724549807363748238}
+  - component: {fileID: 8780410407237771566}
   m_Layer: 5
   m_Name: MoneyIcon
   m_TagString: Untagged
@@ -168,10 +169,10 @@ RectTransform:
   m_Father: {fileID: 8724549807525892950}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.4222371, y: 0.5}
-  m_AnchorMax: {x: 0.4222371, y: 0.5}
-  m_AnchoredPosition: {x: -1.7, y: 0.000008583069}
-  m_SizeDelta: {x: 31.6432, y: 32}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &8724549807363748237
 CanvasRenderer:
@@ -211,6 +212,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8780410407237771566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8724549807363748232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 20
+  m_PreferredHeight: 20
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &8724549807525892951
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,6 +243,7 @@ GameObject:
   - component: {fileID: 8724549807525892950}
   - component: {fileID: 8724549807525892948}
   - component: {fileID: 8724549807525892955}
+  - component: {fileID: 6294304284158785083}
   m_Layer: 5
   m_Name: MoneyUIFX
   m_TagString: Untagged
@@ -248,8 +270,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 41.26646, y: 9.1}
-  m_SizeDelta: {x: 163.438, y: 31.5}
+  m_AnchoredPosition: {x: 41.26646, y: 18.3117}
+  m_SizeDelta: {x: 163.438, y: 49.9233}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8724549807525892948
 CanvasRenderer:
@@ -272,3 +294,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 8724549806653037658}
+--- !u!114 &6294304284158785083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8724549807525892951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 1
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0

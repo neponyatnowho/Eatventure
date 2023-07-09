@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19b935a61b2f0d4284fa0822c629621, type: 3}
+  m_Name: Lemonade
+  m_EditorClassIdentifier: 
+  MachineType: 0
+  IconMeterial: {fileID: 2100000, guid: a43b266f6c2187944b256c8f0dcc3e7b, type: 2}
+  StartPrice: 6
+  StartUpgradePrice: 3
+  StartTimeToCreate: 5
+  WorkingMachineObject: {fileID: 7097849472505837504, guid: ce0af3a80176c0d4fb03e0ea857ae6de, type: 3}

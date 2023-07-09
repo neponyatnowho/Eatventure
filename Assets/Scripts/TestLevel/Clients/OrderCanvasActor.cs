@@ -10,7 +10,6 @@ public class OrderCanvasActor : MonoBehaviour
     private void Awake()
     {
         HideOrder();
-        transform.rotation = Camera.main.transform.rotation;
     }
     public void ShowOrder(MachinesType orderType)
     {

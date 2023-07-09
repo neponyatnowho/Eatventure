@@ -1,19 +1,22 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class OrdersInfo: MonoBehaviour
 {
+    public Action<int, MachinesType> OnLevelDoublePriceArrived;
     private static readonly string priceKeySuffix = "Price";
     private static readonly string timeKeySuffix = "Time";
     private static readonly string levelKeySuffix = "Level";
-    private static readonly string upgradePriceKeySuffix = "Level";
+    private static readonly string upgradePriceKeySuffix = "UpgradePrice";
 
-    private static readonly Dictionary<MachinesType, float> cachedPrices = new Dictionary<MachinesType, float>();
+    private static readonly Dictionary<MachinesType, double> cachedPrices = new Dictionary<MachinesType, double>();
     private static readonly Dictionary<MachinesType, float> cachedTimes = new Dictionary<MachinesType, float>();
     private static readonly Dictionary<MachinesType, int> cachedLevels = new Dictionary<MachinesType, int>();
-    private static readonly Dictionary<MachinesType, float> cachedUpgradePrice = new Dictionary<MachinesType, float>();
+    private static readonly Dictionary<MachinesType, double> cachedUpgradePrice = new Dictionary<MachinesType, double>();
 
-    public float GetPrice(MachinesType orderType)
+    public double GetPrice(MachinesType orderType)
     {
         if (cachedPrices.ContainsKey(orderType))
         {
@@ -22,7 +25,8 @@ public class OrdersInfo: MonoBehaviour
         else
         {
             string key = GetKey(orderType, priceKeySuffix);
-            float price = PlayerPrefs.GetFloat(key, 1f);
+            string priceText = PlayerPrefs.GetString(key, "1");
+            double price = NumbersFormatter.Format(priceText);
             cachedPrices.Add(orderType, price);
             return price;
         }
@@ -55,7 +59,7 @@ public class OrdersInfo: MonoBehaviour
             return level;
         }
     }
-    public float GetUpgradePrice(MachinesType orderType)
+    public double GetUpgradePrice(MachinesType orderType)
     {
         if (cachedUpgradePrice.ContainsKey(orderType))
         {
@@ -64,7 +68,8 @@ public class OrdersInfo: MonoBehaviour
         else
         {
             string key = GetKey(orderType, upgradePriceKeySuffix);
-            float upgradePrice = PlayerPrefs.GetFloat(key, 1f);
+            string upgradePriceText = PlayerPrefs.GetString(key, "1");
+            double upgradePrice = NumbersFormatter.Format(upgradePriceText);
             cachedUpgradePrice.Add(orderType, upgradePrice);
             return upgradePrice;
         }
@@ -77,10 +82,11 @@ public class OrdersInfo: MonoBehaviour
         UpgradeTime(orderType);
         UpgradePriceToUpgrade(orderType);
     }
-    private void SetPrice(MachinesType orderType, float price)
+    public void SetPrice(MachinesType orderType, double price)
     {
         string key = GetKey(orderType, priceKeySuffix);
-        PlayerPrefs.SetFloat(key, price);
+        string priceText = NumbersFormatter.Format(price);
+        PlayerPrefs.SetString(key, priceText);
 
         if (cachedPrices.ContainsKey(orderType))
         {
@@ -92,7 +98,7 @@ public class OrdersInfo: MonoBehaviour
         }
     }
 
-    private void SetTime(MachinesType orderType, float time)
+    public void SetTime(MachinesType orderType, float time)
     {
         string key = GetKey(orderType, timeKeySuffix);
         PlayerPrefs.SetFloat(key, time);
@@ -123,10 +129,12 @@ public class OrdersInfo: MonoBehaviour
         }
         PlayerPrefs.SetInt(key, nextLevel);
     }
-    private void SetUpgradePrice(MachinesType orderType, float upgradePrice)
+    public void SetUpgradePrice(MachinesType orderType, double upgradePrice)
     {
         string key = GetKey(orderType, upgradePriceKeySuffix);
-        PlayerPrefs.SetFloat(key, upgradePrice);
+        string priceText = NumbersFormatter.Format(upgradePrice);
+
+        PlayerPrefs.SetString(key, priceText);
 
         if (cachedUpgradePrice.ContainsKey(orderType))
         {
@@ -140,8 +148,19 @@ public class OrdersInfo: MonoBehaviour
 
     private void UpgradePrice(MachinesType orderType)
     {
-        float currentPrice = GetPrice(orderType);
-        float upgradePrice = currentPrice * 1.5f;
+        double currentPrice = GetPrice(orderType);
+        double upgradePrice;
+        int currentLevel = GetLevel(orderType);
+
+        if (Enum.IsDefined(typeof(DoublePriceLevel), currentLevel))
+        {
+            upgradePrice = currentPrice * 2;
+            OnLevelDoublePriceArrived?.Invoke(currentLevel, orderType);
+        }
+        else
+        {
+            upgradePrice = currentPrice + 1;
+        }
 
         SetPrice(orderType, upgradePrice);
     }
@@ -149,15 +168,25 @@ public class OrdersInfo: MonoBehaviour
     private void UpgradeTime(MachinesType orderType)
     {
         float currentTime = GetTime(orderType);
-        float upgradeTime = currentTime * 0.95f;
+        float upgradeTime = currentTime * 0.99f;
 
         SetTime(orderType, upgradeTime);
     }
 
     private void UpgradePriceToUpgrade(MachinesType orderType)
     {
-        float currentUpgradePrice = GetUpgradePrice(orderType);
-        float upgradePriceToUpgrade = currentUpgradePrice * 1.8f;
+        double currentUpgradePrice = GetUpgradePrice(orderType);
+        double upgradePriceToUpgrade;
+
+        if (currentUpgradePrice < 10)
+        {
+            upgradePriceToUpgrade = currentUpgradePrice + 1;
+
+            SetUpgradePrice(orderType, upgradePriceToUpgrade);
+            return;
+        }
+        upgradePriceToUpgrade = currentUpgradePrice * 1.2;
+
 
         SetUpgradePrice(orderType, upgradePriceToUpgrade);
     }

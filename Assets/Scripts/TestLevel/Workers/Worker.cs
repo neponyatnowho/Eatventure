@@ -1,13 +1,12 @@
 ﻿using DG.Tweening;
 using System;
-using System.Collections;
-using System.Drawing;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Worker : MonoBehaviour
 { 
     [SerializeField] private float _movementSpeed;
+    [SerializeField] private TimerCanvas _timerCanvas;
+
     public event Action OnCheckoutComplete;
     public event Action OnCookingComplete;
     public event Action OnOrderComplete;
@@ -34,10 +33,9 @@ public class Worker : MonoBehaviour
     private void ProcesedOrder(CheckoutTable table)
     {
         var sequence = DOTween.Sequence();
-        sequence.Append(transform.DOScale(1.1f, 0.3f));
-        sequence.Append(transform.DOScale(1f, 0.3f));
-        sequence.Append(transform.DOScale(1.1f, 0.3f));
-        sequence.Append(transform.DOScale(1f, 0.3f));
+        _timerCanvas.ShowTimer(2f);
+        sequence.Append(transform.DOScale(1.1f, 1f));
+        sequence.Append(transform.DOScale(1f, 1f));
         sequence.OnComplete(() => 
         { 
             _isFree = true;
@@ -46,23 +44,24 @@ public class Worker : MonoBehaviour
         });
         sequence.Play();
     }
-    public void MakeOrder(UnitPoint<Worker> point, IOrder order)
+    public void MakeOrder(UnitPoint<Worker> point, IOrder order, float time)
     {
         _isFree = false;
         _currentOrder = order;
         _currentWorkPoint = point;
         Move(_currentWorkPoint.transform.position, _currentWorkPoint.LookAtPoint)
-        .OnComplete((() => Cooking()));
+        .OnComplete((() => Cooking(time)));
     }
 
-    private Tween Cooking()
+    private Tween Cooking(float time)
     {
+        _timerCanvas.ShowTimer(time);
         var sequence = DOTween.Sequence();
-        sequence.Append(transform.DOScale(1.1f, 0.3f));
-        sequence.Append(transform.DOScale(1f, 0.3f));
-        sequence.Append(transform.DOScale(1.1f, 0.3f));
-        sequence.Append(transform.DOScale(1f, 0.3f));
+        sequence.Append(transform.DOScale(1.1f, time/2f));
+        sequence.Append(transform.DOScale(1f, time / 2f));
+
         sequence.Play();
+
         sequence.OnComplete(() =>
         {
             _currentWorkPoint.SetFree();

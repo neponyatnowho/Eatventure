@@ -151,7 +151,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.2
+  m_PixelsPerUnitMultiplier: 0.3
 --- !u!1 &4277349911780493227
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +189,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -0.00008010864, y: -339}
-  m_SizeDelta: {x: 3300, y: 700}
+  m_SizeDelta: {x: 2500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4277349911780493221
 MonoBehaviour:
@@ -230,7 +230,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 4277349912922364540}
   m_HandleRect: {fileID: 0}
@@ -1459,7 +1459,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.2
+  m_PixelsPerUnitMultiplier: 0.3
 --- !u!1 &4277349913033415488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1553,6 +1553,7 @@ GameObject:
   - component: {fileID: 4277349913047134271}
   - component: {fileID: 4277349913047134268}
   - component: {fileID: 4277349913047134265}
+  - component: {fileID: 2197318984227152746}
   m_Layer: 5
   m_Name: UpgradePanel
   m_TagString: Untagged
@@ -1662,3 +1663,16 @@ MonoBehaviour:
   _timeText: {fileID: 4277349912564338480}
   _upgradePriceText: {fileID: 4277349911861147644}
   _upgradeButton: {fileID: 4277349912812108624}
+  _sliderUpgradeProgress: {fileID: 4277349911780493221}
+--- !u!114 &2197318984227152746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277349913047134242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bced89b83f129e49bc5feca05622e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

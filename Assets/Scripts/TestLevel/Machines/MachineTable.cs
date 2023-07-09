@@ -1,35 +1,11 @@
-using System.Linq;
+
 using UnityEngine;
 
 public class MachineTable : MonoBehaviour
 {
-    [SerializeField] private MachinesType _machineType;
-    [SerializeField] private WorkPoint[] _workPoints;
-    [SerializeField] private UpgradePanel _upgradePanel;
+    [SerializeField] private Transform _workMachineContainer;
+    [SerializeField] private WorkPoint _workPoint;
 
-    public MachinesType MachineType => _machineType;
-
-    public void Init(OrdersInfo ordersInfo, MoneyController moneyController)
-    {
-        _upgradePanel.Init(_machineType, ordersInfo, moneyController);
-    }
-
-    public bool IsFree()
-    {
-        return _workPoints.Any(point => point.IsFree);
-    }
-    public WorkPoint GetFreePoint()
-    {
-        return _workPoints.First(point => point.IsFree);
-    }
-
-    public void OpenUpgradePanel()
-    {
-        _upgradePanel.OpenPanel();
-    }
-
-    public void CloseUpgradePanel()
-    {
-        _upgradePanel.ClosePanel();
-    }
+    public Transform WorkMachineContainer => _workMachineContainer;
+    public WorkPoint WorkPoint => _workPoint;
 }

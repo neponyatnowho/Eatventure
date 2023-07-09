@@ -12,7 +12,7 @@ public class MoneyText : MonoBehaviour
         _text = GetComponent<TMP_Text>();
         _moneyController.OnMoneyChanged += ChangeMoneyText;
     }
-    private void ChangeMoneyText(float money)
+    private void ChangeMoneyText(double money)
     {
         _text.text = NumbersFormatter.Format(money);
     }
