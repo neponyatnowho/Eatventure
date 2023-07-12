@@ -14,7 +14,7 @@ public class Worker : MonoBehaviour
     private bool _isFree = true;
     public bool IsFree => _isFree;
 
-    private IOrder _currentOrder;
+    private Order _currentOrder;
     private UnitPoint<Worker> _currentWorkPoint;
     public void TakeOrder(CheckoutTable table)
     {
@@ -44,7 +44,7 @@ public class Worker : MonoBehaviour
         });
         sequence.Play();
     }
-    public void MakeOrder(UnitPoint<Worker> point, IOrder order, float time)
+    public void MakeOrder(UnitPoint<Worker> point, Order order, float time)
     {
         _isFree = false;
         _currentOrder = order;

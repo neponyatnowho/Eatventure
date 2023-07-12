@@ -6,7 +6,7 @@ public class MoneyFxController : MonoBehaviour
     [SerializeField] private MoneyUIParticlePool _moneyUiParticle;
     [SerializeField] private MoneyParticlePool _moneyParticlePool;
     
-    public void ShowFx(IOrder order)
+    public void ShowFx(Order order)
     {
         var position = order.OrderTable.transform.position;
 

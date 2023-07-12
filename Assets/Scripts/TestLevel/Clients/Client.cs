@@ -6,7 +6,7 @@ public class Client : MonoBehaviour
 {
     [SerializeField] private OrderCanvasActor _orderCanvas;
     private Vector3 _endPoint;
-    private IOrder _order;
+    private Order _order;
     private float _movementSpeed = 2f;
 
     public void Init(Vector3 endPoint)
@@ -14,7 +14,7 @@ public class Client : MonoBehaviour
         _endPoint = endPoint;
     }
 
-    public void SetOrder(IOrder order)
+    public void SetOrder(Order order)
     {
         _order = order;
     }
@@ -23,7 +23,7 @@ public class Client : MonoBehaviour
         return Move(point.transform.position, point.LookAtPoint);
     }
 
-    public IOrder ShowOrder()
+    public Order ShowOrder()
     {
         _orderCanvas.ShowOrder(_order.OrderType);
         return _order;

@@ -12,7 +12,7 @@ public class WorkersController : MonoBehaviour
 
     [SerializeField] private List<Worker> _workers;
     private List<ComplexMachineTables> _machineTables = new List<ComplexMachineTables>();
-    private Queue<IOrder> _orders = new Queue<IOrder>();
+    private Queue<Order> _orders = new Queue<Order>();
 
 
     private void Awake()
@@ -39,7 +39,7 @@ public class WorkersController : MonoBehaviour
         currentWorker.TakeOrder(table);
     }
 
-    public void AddOrderForWorkers(IOrder order)
+    public void AddOrderForWorkers(Order order)
     {
         _orders.Enqueue(order);
         GiveWorkForWorkers();
@@ -53,10 +53,12 @@ public class WorkersController : MonoBehaviour
     {
         if (IsAnyWorkersFree() && _orders.Count != 0)
         {
+            Debug.Log($"IsAnyMachineFree {IsAnyMachineFree(GetOrderType())}");
+
             if (IsAnyMachineFree(GetOrderType()))
             {
                 Worker currentWorker = GetFreeWorker();
-                IOrder currentOrder = GetOrder();
+                Order currentOrder = GetOrder();
                 ComplexMachineTables machineTable = GetWorkPointOnMachine(currentOrder.OrderType);
 
                 UnitPoint<Worker> workPoint = machineTable.GetFreePoint();
@@ -87,7 +89,7 @@ public class WorkersController : MonoBehaviour
         return _orders.Peek().OrderType;
     }
 
-    private IOrder GetOrder()
+    private Order GetOrder()
     {
         return _orders.Dequeue();
     }

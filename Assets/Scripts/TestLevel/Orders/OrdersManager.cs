@@ -1,17 +1,23 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class OrdersManager : MonoBehaviour
 {
-    public IOrder GetRandomOrder()
+    private List<MachinesType> _openMachinesType;
+
+    public void SetOpenMachinesType(List<MachinesType> machineType)
     {
-        var i = Random.Range(0, 2);
-        if (i == 0)
-        {
-            return new LemonadeOrder();
-        }
-        else
-        {
-            return new HotDogOrder();
-        }
+        _openMachinesType = machineType;
+    }
+    public Order GetRandomOrder()
+    {
+        if(_openMachinesType.Count == 0)
+            return new Order(MachinesType.Lemonade);
+        return new Order(GetRandomMachiteType());
+    }
+
+    private MachinesType GetRandomMachiteType()
+    {
+        return _openMachinesType[Random.Range(0, _openMachinesType.Count)];
     }
 }

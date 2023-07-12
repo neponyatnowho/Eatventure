@@ -1,4 +1,4 @@
-public class LemonadeOrder : IOrder
+public class LemonadeOrder
 {
     private MachinesType _orderType = MachinesType.Lemonade;
     public CheckoutTable OrderTable { get; set; }

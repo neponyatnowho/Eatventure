@@ -1,10 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MachineTableController : MonoBehaviour
 {
+    public event Action<MachinesType> OnTableOpen;
     [SerializeField] private List<ComplexMachineTables> _machineTables;
-    [SerializeField] private MachineTableClickObserver _tableClickObserver;
+    [SerializeField] private ComplexMachineTableClickObserver _tableClickObserver;
     [SerializeField] private OrdersInfo _ordersInfo;
     [SerializeField] private MoneyController _moneyController;
 
@@ -19,6 +21,7 @@ public class MachineTableController : MonoBehaviour
         foreach (var table in _machineTables)
         {
             table.Init(_ordersInfo, _moneyController);
+            table.OnWorkinTableOpen += OnTableOpen;
         }
     }
 
@@ -33,14 +36,21 @@ public class MachineTableController : MonoBehaviour
 
     private void OpenTableUpgradePanel(ComplexMachineTables machineTable)
     {
-        ComplexMachineTables tableToOpen = _machineTables.Find(table => table == machineTable);
-        tableToOpen.OpenUpgradePanel();
-        _currentTableWhithOpenPanel = tableToOpen;
+        machineTable.OpenPanel();
+        _currentTableWhithOpenPanel = machineTable;
     }
 
     private void CloseCurrentPanel()
     {
         if(_currentTableWhithOpenPanel != null)
-            _currentTableWhithOpenPanel.CloseUpgradePanel();
+            _currentTableWhithOpenPanel.ClosePanel();
+    }
+
+    private void OnDisable()
+    {
+        foreach (var table in _machineTables)
+        {
+            table.OnWorkinTableOpen -= OnTableOpen;
+        }
     }
 }

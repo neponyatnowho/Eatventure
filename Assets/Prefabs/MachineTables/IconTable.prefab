@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2421479094029228330}
   - component: {fileID: 4495035817242336237}
+  - component: {fileID: 8613097618323988162}
   m_Layer: 0
   m_Name: IconTable
   m_TagString: Untagged
@@ -47,6 +48,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _iconMeshRander: {fileID: 3432043606928853319}
+--- !u!65 &8613097618323988162
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88091753837825950}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8106260772007794586
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,8 +88,8 @@ Transform:
   m_GameObject: {fileID: 8106260772007794586}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.51, z: 0}
-  m_LocalScale: {x: 0.1, y: 1, z: 0.1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.07, y: 0.7, z: 0.07}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2421479094029228330}
   m_RootOrder: 1
@@ -108,7 +122,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a43b266f6c2187944b256c8f0dcc3e7b, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

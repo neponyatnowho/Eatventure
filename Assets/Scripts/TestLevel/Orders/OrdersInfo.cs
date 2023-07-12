@@ -113,7 +113,7 @@ public class OrdersInfo: MonoBehaviour
         }
     }
 
-    private void AddLevel(MachinesType orderType)
+    public void AddLevel(MachinesType orderType)
     {
         string key = GetKey(orderType, levelKeySuffix);
         int nextLevel;

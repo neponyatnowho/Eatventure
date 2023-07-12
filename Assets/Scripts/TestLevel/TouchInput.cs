@@ -42,14 +42,19 @@ public class TouchInput : MonoBehaviour
 
     private void HandleTouchBegan(Vector2 touchPosition)
     {
+
         OnTouchBegan?.Invoke(touchPosition);
         _isDragging = false;
     }
 
     private void HandleTouchMoved(Vector2 touchPosition)
     {
-        OnTouchMoved?.Invoke(touchPosition);
         _isDragging = true;
+
+        if (IsPointerOverUIObject(touchPosition))
+            return;
+
+        OnTouchMoved?.Invoke(touchPosition);
     }
 
     private void HandleTouchEnded(Vector2 touchPosition)

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Canvas))]
 public class UpgradePanel : MonoBehaviour
 {
+    public event Action OnNewTableLevel;
 
     [SerializeField] private TMP_Text _levelText;
     [SerializeField] private TMP_Text _machineTypeText;
@@ -68,6 +69,7 @@ public class UpgradePanel : MonoBehaviour
     private void UpdateAllTextInfo()
     {
         var level = _ordersInfo.GetLevel(_machineType);
+        CheckNewTableLevel(level);
         _levelText.text = "Level " + level.ToString();
 
         _machineTypeText.text = _machineType.ToString();
@@ -81,6 +83,13 @@ public class UpgradePanel : MonoBehaviour
 
         _upgradePrice = _ordersInfo.GetUpgradePrice(_machineType);
         _upgradePriceText.text = NumbersFormatter.Format(_upgradePrice);
+    }
+
+    private void CheckNewTableLevel(int level)
+    {
+        if (Enum.IsDefined(typeof(NewTableLevels), level))
+            OnNewTableLevel?.Invoke();
+
     }
 
     private void OnUpgradeButtonClick()

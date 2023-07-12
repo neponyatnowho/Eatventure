@@ -7,15 +7,15 @@ public class CheckoutTable : MonoBehaviour
 {
 
     public Action<CheckoutTable> OnReadyToOrder;
-    public Action<IOrder> OnOrderShowed;
-    public Action<IOrder> OnOrderClosed;
+    public Action<Order> OnOrderShowed;
+    public Action<Order> OnOrderClosed;
 
     [SerializeField] private WorkPoint _workerPoint;
     [SerializeField] private QueuePoint _queuePoint;
     [SerializeField] private ClientCheckoutPoint _clientPoint;
     [SerializeField] public int tablenumber;
     private Client _currentClient;
-    private IOrder _currentOrder;
+    private Order _currentOrder;
     public ClientCheckoutPoint ClientPoint => _clientPoint;
     public Vector3 WorkerPointPosition => _workerPoint.transform.position;
 

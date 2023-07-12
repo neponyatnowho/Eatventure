@@ -8,7 +8,7 @@ public class ClientSpawner : MonoBehaviour
     [SerializeField] private float _spawnDelay;
     [SerializeField] private Transform _startPoint;
     [SerializeField] private Transform _endPoint;
-    [SerializeField] private IOrder[] _posibleOrders;
+    [SerializeField] private Order[] _posibleOrders;
     [SerializeField] private OrdersManager _ordersManager;
     private void Start()
     {
@@ -23,7 +23,7 @@ public class ClientSpawner : MonoBehaviour
             Client client = _clientsPool.GetFreeElement();
             if(client != null)
             {
-                IOrder order = _ordersManager.GetRandomOrder();
+                Order order = _ordersManager.GetRandomOrder();
                 client.transform.position = _startPoint.position;
                 client.SetOrder(order);
             }

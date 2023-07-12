@@ -12,10 +12,10 @@ public class ClientCheckout : MonoBehaviour
     [SerializeField] private MoneyFxController _moneyFx;
 
     private Queue<CheckoutTable> _readyToOrderTables = new Queue<CheckoutTable>();
-    private Queue<IOrder> _readyToMakeOrders = new Queue<IOrder>();
+    private Queue<Order> _readyToMakeOrders = new Queue<Order>();
 
     public Queue<CheckoutTable> ReadyToOrderTables => _readyToOrderTables;
-    public Queue<IOrder> ReadyToMakeOrders => _readyToMakeOrders;
+    public Queue<Order> ReadyToMakeOrders => _readyToMakeOrders;
 
 
     private void Awake()
@@ -51,12 +51,12 @@ public class ClientCheckout : MonoBehaviour
         client.GoToEnd();
     }
 
-    public void Cashing(IOrder order)
+    public void Cashing(Order order)
     {
         _moneyController.CashingTheOrder(order);
     }
 
-    public void MoneyFx(IOrder order)
+    public void MoneyFx(Order order)
     {
         _moneyFx.ShowFx(order);
     }
@@ -67,13 +67,13 @@ public class ClientCheckout : MonoBehaviour
         OnReadyTableAdded?.Invoke();
     }
 
-    private void AddOrderToQueue(IOrder order)
+    private void AddOrderToQueue(Order order)
     {
         _readyToMakeOrders.Enqueue(order);
         
     }
 
-    public IOrder GetReadyToMakeOrder()
+    public Order GetReadyToMakeOrder()
     {
        return _readyToMakeOrders.Dequeue();
     }

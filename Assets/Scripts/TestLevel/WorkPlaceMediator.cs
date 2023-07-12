@@ -7,8 +7,10 @@ public class WorkPlaceMediator : MonoBehaviour
     [SerializeField] private ClientCheckout _clientCheckout;
     [SerializeField] private WorkersController _workerController;
     [SerializeField] private MachineTableController _machineTableController;
+    [SerializeField] private OrdersManager _orderMenager;
 
     private List<ComplexMachineTables> _machineTables;
+    private List<MachinesType> _openMachinesType;
     private int _readyToOrderTablesCount => _clientCheckout.ReadyToOrderTables.Count;
     private int _readyToMakeOrdersCount => _clientCheckout.ReadyToMakeOrders.Count;
     private void Awake()
@@ -18,6 +20,10 @@ public class WorkPlaceMediator : MonoBehaviour
         _clientCheckout.OnReadyTableAdded += TryFindWorkForWorkers;
         _workerController.OnCheckoutComplete += TryFindWorkForWorkers;
         _workerController.OnOrderComplete += TryFindWorkForWorkers;
+        _machineTableController.OnTableOpen += OnNewMachineOpen;
+        GetAllOpenMachineTypes();
+        _orderMenager.SetOpenMachinesType(_openMachinesType);
+
     }
 
     private void TryFindWorkForWorkers()
@@ -33,10 +39,31 @@ public class WorkPlaceMediator : MonoBehaviour
 
             if (_readyToMakeOrdersCount > 0)
             {
-                IOrder processedOrder = _clientCheckout.GetReadyToMakeOrder();
+                Order processedOrder = _clientCheckout.GetReadyToMakeOrder();
                 _workerController.AddOrderForWorkers(processedOrder);
                 return;
             }
         }
+    }
+    private void OnNewMachineOpen(MachinesType type)
+    {
+        _openMachinesType.Add(type);
+        TryFindWorkForWorkers();
+    }
+
+    public void GetAllOpenMachineTypes()
+    {
+        _openMachinesType =  _machineTables
+            .Where(machine => machine.IsWorkingTableOpen)
+            .Select(machine => machine.MachineType)
+            .ToList();
+    }
+
+    private void OnDestroy()
+    {
+        _clientCheckout.OnReadyTableAdded -= TryFindWorkForWorkers;
+        _workerController.OnCheckoutComplete -= TryFindWorkForWorkers;
+        _workerController.OnOrderComplete -= TryFindWorkForWorkers;
+        _machineTableController.OnTableOpen -= OnNewMachineOpen;
     }
 }

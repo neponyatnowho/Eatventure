@@ -9,5 +9,4 @@ public class TableExample : ScriptableObject
     [SerializeField] public double StartUpgradePrice;
     [SerializeField] public float StartTimeToCreate;
     [SerializeField] public WorkingMachine WorkingMachineObject;
-
 }

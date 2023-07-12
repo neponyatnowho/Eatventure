@@ -18,7 +18,7 @@ public class MoneyController : MonoBehaviour
         RegisterMoneyChanged();
         StartCoroutine(SaveMoneyRoutine());
     }
-    public void CashingTheOrder(IOrder order)
+    public void CashingTheOrder(Order order)
     {
         double orderPrice = _ordersInfo.GetPrice(order.OrderType);
         _money += orderPrice;

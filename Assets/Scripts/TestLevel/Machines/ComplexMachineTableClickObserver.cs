@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class MachineTableClickObserver : MonoBehaviour
+public class ComplexMachineTableClickObserver : MonoBehaviour
 {
     public event Action<ComplexMachineTables> OnTableClick;
     public event Action OnNonTableClick;
@@ -22,19 +22,16 @@ public class MachineTableClickObserver : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.collider.TryGetComponent(out ComplexMachineTables machineTable))
-            {
-                OnTableClick?.Invoke(machineTable);
-            }
-            else
-            {
-                ProcessNonTableClick();
+            ComplexMachineTables table = hit.collider.GetComponentInParent<ComplexMachineTables>();
+
+            if (table != null)
+            { 
+                OnTableClick?.Invoke(table);
+                return;            
             }
         }
-        else
-        {
-            ProcessNonTableClick();
-        }
+
+        ProcessNonTableClick();
     }
 
     private void ProcessNonTableClick()
